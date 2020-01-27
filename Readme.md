@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
 * Студент: [Татьяна Кузьмина](https://up.htmlacademy.ru/javascript/19/user/1053279).
-* Наставник: `Неизвестно`.
+* Наставник: [Александр Тимоновский] (https://htmlacademy.ru/profile/id768125).
 
 ---
 
