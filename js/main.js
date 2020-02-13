@@ -71,7 +71,7 @@ var main = function () {
     var pictureElement = pictureTemplate.cloneNode(true);
     pictureElement.querySelector('.picture__img').src = pict.url;
     pictureElement.querySelector('.picture__likes').textContent = pict.likes;
-    pictureElement.querySelector('.picture__comments').textContent = pict.comments;
+    pictureElement.querySelector('.picture__comments').textContent = pict.comments.length;
     fragment.appendChild(pictureElement);
   });
 };
