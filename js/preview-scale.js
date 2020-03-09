@@ -22,6 +22,7 @@
     }
     scaleValue.value = num;
     var numScale = scaleValue.value / 100;
+
     previewSize.style.transform = 'scale(' + numScale + ')';
   });
 })();

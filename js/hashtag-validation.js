@@ -2,6 +2,7 @@
 (function () {
   var tagsList = [];
   var inputHashtags = document.querySelector('.text__hashtags');
+  var inputComment = document.querySelector('.text__description');
 
   var hashtagCheck = function () {
     var inputContent = inputHashtags.value.replace(/\s+/g, ' ').trim().toLowerCase();
@@ -41,5 +42,16 @@
   };
 
   inputHashtags.addEventListener('change', hashtagCheck);
+
+  var commentCheck = function () {
+    var commentContent = inputComment.value;
+    if (commentContent.length > 140) {
+      inputComment.setCustomValidity('длина комментария не более 140 символов, вы ввели ' + commentContent.length);
+    } else {
+      inputComment.setCustomValidity('');
+    }
+  };
+  inputComment.addEventListener('change', commentCheck);
+
 
 })();
