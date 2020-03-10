@@ -31,7 +31,7 @@
     xhr.open('GET', URL);
     xhr.send();
   };
-  load();
+  // load();
   // console.log(load);
 
   window.server = {
