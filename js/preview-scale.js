@@ -8,37 +8,28 @@
   var scaleValue = document.querySelector('.scale__control--value');
   var previewSize = document.querySelector('.img-upload__preview');
 
-  var getScaleValue = function () {
-    var value = scaleValue.value;
-    var valueNumber = value.slice(0, -1);
-    console.log(typeof valueNumber);
-    return parseInt(valueNumber, 10);
-
-  };
-
-  var setScaleValue = function (value) {
-    scaleValue.value = value + '%';
-  };
-
   onScaleSmaller.addEventListener('click', function () {
-    var num = scaleValue.value;
-    if (num > 25) {
-      num = num - 25;
-    }
-    scaleValue.value = num;
-    var numScale = scaleValue.value / 100;
-    previewSize.style.transform = 'scale(' + numScale + ')';
+    var value = scaleValue.value.slice(0, -1);
+    var valueNumber = +value;
 
+    if (valueNumber > MIN) {
+      var newValue = valueNumber - STEP;
+      valueNumber = newValue;
+      scaleValue.value = (newValue) + '%';
+      previewSize.style.transform = 'scale(' + (newValue) / MAX + ')';
+    }
   });
 
-  onScaleBigger.addEventListener('click', function () {
-    var num = scaleValue.value;
-    if (num < 100) {
-      num = +num + 25;
-    }
-    scaleValue.value = num;
-    var numScale = scaleValue.value / 100;
 
-    previewSize.style.transform = 'scale(' + numScale + ')';
+  onScaleBigger.addEventListener('click', function () {
+    var value = scaleValue.value.slice(0, -1);
+    var valueNumber = +value;
+
+    if (valueNumber < MAX) {
+      var newValue = valueNumber + STEP;
+      valueNumber = newValue;
+      scaleValue.value = (newValue) + '%';
+      previewSize.style.transform = 'scale(' + (newValue) / MAX + ')';
+    }
   });
 })();

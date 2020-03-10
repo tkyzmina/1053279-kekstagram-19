@@ -3,6 +3,7 @@
   var effectsList = document.querySelector('.effects__list');
   var imgUpload = document.querySelector('.img-upload__preview');
   var imgEffects = document.querySelector('.img-upload__effect-level');
+
   imgEffects.classList.add('hidden');
 
   // очищает классы начинающиеся на effects
@@ -50,21 +51,51 @@
     }
   });
 
-
-  // бегунок слайдера
-
   var sliderField = document.querySelector('.effect-level__line');
-  var vrapperField = document.querySelector('.img-upload__preview-container');
   var sliderPin = document.querySelector('.effect-level__pin');
   var effectLevel = document.querySelector('.effect-level__depth');
 
   var setEffectLevel = function (level) {
     var x = level / 100 * sliderField.offsetWidth;
-    console.log(x + ' x');
-    console.log(level + ' level');
     sliderPin.style.left = x + 'px';
     effectLevel.style.width = x + 'px';
+
+    //  Для эффекта «Хром» — filter: grayscale(0..1);
+    // Для эффекта «Сепия» — filter: sepia(0..1);
+    // Для эффекта «Марвин» — filter: invert(0..100%);
+    // Для эффекта «Фобос» — filter: blur(0..3px);
+    // Для эффекта «Зной» — filter: brightness(1..3);
+
+    var blurBrigtnessLevel = 3 * level / 100;
+    var heatmin = 1;
+    var heatmax = 3;
+    var brightness = heatmin + (heatmax - heatmin) * level / 100;
+
+    var checkedEffect = effectsList.querySelector('.effects__radio:checked');
+    switch (checkedEffect.value) {
+      case 'chrome':
+        imgUpload.style.filter = '';
+        imgUpload.style.filter = 'grayscale(' + (level) / 100 + ')';
+        break;
+      case 'sepia':
+        imgUpload.style.filter = '';
+        imgUpload.style.filter = 'sepia(' + (level) / 100 + ')';
+        break;
+      case 'marvin':
+        imgUpload.style.filter = '';
+        imgUpload.style.filter = 'invert(' + (level) + '%)';
+        break;
+      case 'phobos':
+        imgUpload.style.filter = '';
+        imgUpload.style.filter = 'blur(' + blurBrigtnessLevel + 'px)';
+        break;
+      case 'heat':
+        imgUpload.style.filter = '';
+        imgUpload.style.filter = 'brightness(' + brightness + ')';
+        break;
+    }
   };
+
 
   sliderPin.addEventListener('mousedown', function (evt) {
     var startX = evt.clientX;
@@ -77,11 +108,8 @@
       sliderLocation = Math.min(sliderLocation, sliderField.offsetWidth);
       sliderLocation = Math.max(sliderLocation, 0);
 
-      // sliderPin.style.left = sliderLocation + 'px';
-      // effectLevel.style.width = sliderLocation + 'px';
       var percentage = sliderLocation / sliderField.offsetWidth * 100;
       setEffectLevel(percentage);
-      console.log(percentage + ' percentage');
     };
 
     var onMouseUp = function () {
@@ -93,46 +121,4 @@
     document.addEventListener('mouseup', onMouseUp);
 
   });
-
-  var effectNumber = effectLevel.clientWidth;
-  console.log(effectLevel.clientWidth + 'effectNumber ');
-
-  // --------------применение уровня эффекта--------------
-  var levelLength = effectLevel.offsetWidth;
-  console.log(levelLength + ' levelLength');
-
-  // Для эффекта «Хром» — filter: grayscale(0..1);
-  // Для эффекта «Сепия» — filter: sepia(0..1);
-  // Для эффекта «Марвин» — filter: invert(0..100%);
-  // Для эффекта «Фобос» — filter: blur(0..3px);
-  // Для эффекта «Зной» — filter: brightness(1..3);
-  // effectNumber / levelLength;
-  var grayAndSepiaLevel = effectNumber / levelLength;
-  var invertLevel = effectNumber / levelLength * 100;
-  var blurBrigtnessLevel = 3 * (effectNumber / levelLength);
-
-  var chrome = document.querySelector('#effect-chrome');
-  var sepia = document.querySelector('#effect-sepia');
-  var marvin = document.querySelector('#effect-marvin');
-  var phobos = document.querySelector('#effect-phobos');
-  var heat = document.querySelector('#effect-heat');
-
-  if (chrome.checked) {
-    imgUpload.style.filter = '';
-    imgUpload.style.filter = 'grayscale(' + setEffectLevel() + ')';
-
-    setEffectLevel();
-  } else if (sepia.checked) {
-    imgUpload.style.filter = '';
-    imgUpload.style.filter = 'sepia(' + grayAndSepiaLevel + ')';
-  } else if (marvin.checked) {
-    imgUpload.style.filter = '';
-    imgUpload.style.filter = 'invert(' + invertLevel + '%)';
-  } else if (phobos.checked) {
-    imgUpload.style.filter = '';
-    imgUpload.style.filter = 'blur(' + blurBrigtnessLevel + 'px)';
-  } else if (heat.checked) {
-    imgUpload.style.filter = '';
-    imgUpload.style.filter = 'brightness(' + blurBrigtnessLevel + ')';
-  }
 })();
