@@ -24,38 +24,6 @@
 
     }
     setEffectLevel(100);
-    // for (var i = 0; i < 6; i++) {
-    //   if (evt.target.value === 'chrome') {
-    //     clearClass();
-    //     imgUpload.classList.add('effects__preview--chrome');
-    //     imgUpload.style.filter = '';
-    //     imgEffects.classList.remove('hidden');
-    //   } else if (evt.target.value === 'sepia') {
-    //     clearClass();
-    //     imgUpload.classList.add('effects__preview--sepia');
-    //     imgUpload.style.filter = '';
-    //     imgEffects.classList.remove('hidden');
-    //   } else if (evt.target.value === 'marvin') {
-    //     clearClass();
-    //     imgUpload.classList.add('effects__preview--marvin');
-    //     imgUpload.style.filter = '';
-    //     imgEffects.classList.remove('hidden');
-    //   } else if (evt.target.value === 'phobos') {
-    //     clearClass();
-    //     imgUpload.classList.add('effects__preview--phobos');
-    //     imgUpload.style.filter = '';
-    //     imgEffects.classList.remove('hidden');
-    //   } else if (evt.target.value === 'heat') {
-    //     clearClass();
-    //     imgUpload.classList.add('effects__preview--heat');
-    //     imgUpload.style.filter = '';
-    //     imgEffects.classList.remove('hidden');
-    //   } else if (evt.target.value === 'none') {
-    //     clearClass();
-    //     imgUpload.style.filter = 'none';
-    //     imgEffects.classList.add('hidden');
-    //   }
-    // }
   });
 
   var sliderField = document.querySelector('.effect-level__line');
