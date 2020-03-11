@@ -7,7 +7,7 @@
   var overlayCloseBtn = overlay.querySelector('.img-upload__cancel');
   var inputHashtags = document.querySelector('.text__hashtags');
   var inputTextComment = document.querySelector('.text__description');
-  var booleanHashtagsInput;
+  var booleanHashtagsInput = true;
   var booleanTextComment;
 
   inputHashtags.addEventListener('focus', function () {
@@ -39,6 +39,7 @@
   };
 
   var overlayClose = function () {
+    // window.utils.closeElement(overlay);
     overlay.classList.add('hidden');
     document.addEventListener('keydown', onOverlayEscPress);
     body.classList.remove('modal-open');
