@@ -21,8 +21,9 @@
     imgEffects.classList.remove('hidden');
     if (evt.target.value === 'none') {
       imgEffects.classList.add('hidden');
-    }
 
+    }
+    setEffectLevel(100);
     // for (var i = 0; i < 6; i++) {
     //   if (evt.target.value === 'chrome') {
     //     clearClass();
