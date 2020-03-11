@@ -55,4 +55,9 @@
   overlayCloseBtn.addEventListener('click', function () {
     overlayClose();
   });
+
+  window.dialog = {
+    overlayClose: overlayClose,
+  };
+
 })();
