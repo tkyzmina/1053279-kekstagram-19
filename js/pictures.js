@@ -85,6 +85,11 @@
     pictureElement.querySelector('.picture__img').src = result.url;
     pictureElement.querySelector('.picture__likes').textContent = result.likes;
     pictureElement.querySelector('.picture__comments').textContent = result.comments.length;
+
+    pictureElement.addEventListener('click', function () {
+      window.bigPicture.show(result);
+    });
+
     return pictureElement;
   };
 
