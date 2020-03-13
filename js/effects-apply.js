@@ -3,6 +3,7 @@
   var effectsList = document.querySelector('.effects__list');
   var imgUpload = document.querySelector('.img-upload__preview');
   var imgEffects = document.querySelector('.img-upload__effect-level');
+  var effectValue = document.querySelector('.effect-level__value');
 
   imgEffects.classList.add('hidden');
 
@@ -34,6 +35,8 @@
     var x = level / 100 * sliderField.offsetWidth;
     sliderPin.style.left = x + 'px';
     effectLevel.style.width = x + 'px';
+
+    // effectValue.value = level;
 
     //  Для эффекта «Хром» — filter: grayscale(0..1);
     // Для эффекта «Сепия» — filter: sepia(0..1);
@@ -85,6 +88,7 @@
 
       var percentage = sliderLocation / sliderField.offsetWidth * 100;
       setEffectLevel(percentage);
+
     };
 
     var onMouseUp = function () {
