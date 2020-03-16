@@ -68,6 +68,6 @@
     insertPhoto: insertPhoto,
     getArray: getArray,
   };
-
+  console.log(window.pictures.insertPhoto);
 
 })();

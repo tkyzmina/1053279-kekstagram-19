@@ -31,12 +31,13 @@
 
   var sortRandom = function () {
     var array = window.pictures.data;
+
     console.log(array);
-    array.sort();
-    console.log(array);
-    array.slice(0, QUANTITY_RANDOM);
-    console.log(array);
-    window.pictures.insertPhoto(array);
+    // array.sort();
+    // console.log(array);
+    var yyy = array.slice(0, QUANTITY_RANDOM);
+    console.log(yyy);
+    window.pictures.insertPhoto(yyy);
   };
 
 })();
