@@ -9,6 +9,7 @@
   var booleanHashtagsInput = true;
   var booleanTextComment;
 
+
   inputHashtags.addEventListener('focus', function () {
     booleanHashtagsInput = true;
   });
@@ -63,6 +64,7 @@
   uploadForm.addEventListener('submit', function (evt) {
     window.server.upload(new FormData(uploadForm), succesUpload, errorUpload);
     evt.preventDefault();
+    clearUploadForm();
   });
 
 
@@ -84,19 +86,16 @@
 
     errorBtn.addEventListener('click', function () {
       errorMessage.remove();
-      clearUploadForm();
     });
 
     document.addEventListener('keydown', function (evtEsc) {
       if (evtEsc.key === window.utils.ESC_KEY) {
         errorMessage.remove();
-        clearUploadForm();
       }
     });
 
     document.addEventListener('click', function () {
       errorMessage.remove();
-      clearUploadForm();
     });
   };
 
@@ -130,7 +129,6 @@
 
   window.dialog = {
     overlayClose: overlayClose,
-    clearUploadForm: clearUploadForm
   };
 
 })();

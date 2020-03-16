@@ -1,5 +1,7 @@
 'use strict';
 (function () {
+  var imgFilters = document.querySelector('.img-filters');
+
   var getPicture = function (result) {
     var pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
     var pictureElement = pictureTemplate.cloneNode(true);
@@ -23,7 +25,7 @@
       fragment.appendChild(getPicture(picts[i]));
     }
     picturesElement.appendChild(fragment);
-
+    imgFilters.classList.remove('img-filters--inactive');
   };
 
   window.server.load(insertPhoto);
@@ -42,5 +44,10 @@
     }
   };
   document.addEventListener('keydown', onOverlayEscPress);
+
+  // window.pictures = {
+  //   picturesArr: picturesArr,
+  // };
+
 
 })();

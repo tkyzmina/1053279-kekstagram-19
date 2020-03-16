@@ -4,6 +4,10 @@
   var imgUpload = document.querySelector('.img-upload__preview');
   var imgEffects = document.querySelector('.img-upload__effect-level');
   var effectValue = document.querySelector('.effect-level__value');
+  console.log(effectValue);
+  console.log(effectValue.value);
+  effectValue.value = 100;
+  console.log(effectValue.value);
 
   imgEffects.classList.add('hidden');
 
@@ -18,6 +22,7 @@
 
   effectsList.addEventListener('change', function (evt) {
     setEffectLevel(100);
+    effectValue.value = '100';
     clearClass();
     imgEffects.classList.remove('hidden');
     if (evt.target.value === 'none') {
@@ -36,7 +41,7 @@
     sliderPin.style.left = x + 'px';
     effectLevel.style.width = x + 'px';
 
-    // effectValue.value = level;
+    effectValue.value = level;
 
     //  Для эффекта «Хром» — filter: grayscale(0..1);
     // Для эффекта «Сепия» — filter: sepia(0..1);
@@ -86,7 +91,7 @@
       sliderLocation = Math.min(sliderLocation, sliderField.offsetWidth);
       sliderLocation = Math.max(sliderLocation, 0);
 
-      var percentage = sliderLocation / sliderField.offsetWidth * 100;
+      var percentage = Math.round(sliderLocation / sliderField.offsetWidth * 100);
       setEffectLevel(percentage);
 
     };

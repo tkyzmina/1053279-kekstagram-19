@@ -44,7 +44,6 @@
 
     xhr.open('POST', URL.URL_UPLOAD);
     xhr.send(data);
-    window.dialog.clearUploadForm();
   };
 
   window.server = {
