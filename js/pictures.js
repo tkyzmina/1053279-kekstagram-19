@@ -26,6 +26,11 @@
     }
     picturesElement.appendChild(fragment);
     imgFilters.classList.remove('img-filters--inactive');
+
+    window.pictures = {
+      picturesArr: picturesArr,
+    };
+    console.log(picturesArr);
   };
 
   window.server.load(insertPhoto);
@@ -45,9 +50,7 @@
   };
   document.addEventListener('keydown', onOverlayEscPress);
 
-  // window.pictures = {
-  //   picturesArr: picturesArr,
-  // };
+
 
 
 })();

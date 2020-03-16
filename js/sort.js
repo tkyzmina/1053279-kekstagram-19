@@ -20,5 +20,9 @@
     return arrayCopy;
   };
 
+  var arrayCopy = window.pictures.picturesArr;
+  console.log(arrayCopy);
+
+
 
 })();
