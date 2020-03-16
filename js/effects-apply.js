@@ -4,10 +4,7 @@
   var imgUpload = document.querySelector('.img-upload__preview');
   var imgEffects = document.querySelector('.img-upload__effect-level');
   var effectValue = document.querySelector('.effect-level__value');
-  console.log(effectValue);
-  console.log(effectValue.value);
   effectValue.value = 100;
-  console.log(effectValue.value);
 
   imgEffects.classList.add('hidden');
 

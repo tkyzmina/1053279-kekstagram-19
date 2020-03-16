@@ -27,13 +27,19 @@
     picturesElement.appendChild(fragment);
     imgFilters.classList.remove('img-filters--inactive');
 
-    window.pictures = {
-      picturesArr: picturesArr,
-    };
-    console.log(picturesArr);
   };
 
-  window.server.load(insertPhoto);
+  var onSuccess = function (picts) {
+    var data = picts;
+    // console.log(data);
+    insertPhoto(picts);
+
+    window.pictures = {
+      data: data,
+    };
+  };
+
+  window.server.load(onSuccess);
 
   var bigPicture = document.querySelector('.big-picture');
   var picturesElement = document.querySelector('.pictures');
@@ -51,6 +57,17 @@
   document.addEventListener('keydown', onOverlayEscPress);
 
 
+  var getArray = function (data) {
+    var array = data;
+    return array;
+    console.log(array);
+  };
+
+  // getArray();
+  window.pictures = {
+    insertPhoto: insertPhoto,
+    getArray: getArray,
+  };
 
 
 })();
