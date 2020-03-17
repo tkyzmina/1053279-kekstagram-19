@@ -15,32 +15,31 @@
 
 
   var sortHandler = window.debounce(function (evt) {
+    window.pictures.clearPictures();
     buttonStyleApply(evt.target);
     var choosenFilter = evt.target;
     switch (choosenFilter) {
       case defaultFilter:
-        console.log('defaultFilter');
+        defaultPictures();
         break;
       case randomFilter:
-        console.log('randomFilter');
         sortRandom();
         break;
       case discussedFilter:
         sortPopular();
-        console.log('discussedFilter');
         break;
     }
   });
 
   imgFilters.addEventListener('click', sortHandler);
 
+  var defaultPictures = function () {
+    window.pictures.insertPhoto(window.pictures.getArray());
+  };
+
   var sortRandom = function () {
-    var array = window.pictures.data;
-
-    console.log(array);
+    var array = window.pictures.getArray();
     var sortedArray = shuffle(array).slice(0, QUANTITY_RANDOM);
-    console.log(sortedArray);
-
     window.pictures.insertPhoto(sortedArray);
   };
 
@@ -51,7 +50,6 @@
     for (var i = 0; i < arrayCopy.length; i++) {
       var randomIndex = Math.floor(Math.random() * (i + 1));
       var currentElement = arrayCopy[i];
-
       arrayCopy[i] = arrayCopy[randomIndex];
       arrayCopy[randomIndex] = currentElement;
     }
@@ -60,12 +58,12 @@
 
 
   var sortPopular = function () {
-    var array = window.pictures.data;
-    array.sort(function (a, b) {
+    var array = window.pictures.getArray();
+    var copyArray = array.slice();
+    copyArray.sort(function (a, b) {
       return b.comments.length - a.comments.length;
     });
-    console.log(array);
-    window.pictures.insertPhoto(array);
+    window.pictures.insertPhoto(copyArray);
   };
 
 })();

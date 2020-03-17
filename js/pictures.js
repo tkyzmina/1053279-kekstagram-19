@@ -19,7 +19,7 @@
   var picturesArr = [];
 
   var insertPhoto = function (picts) {
-    picturesArr = picts;
+    // picturesArr = picts;
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < picts.length; i++) {
       fragment.appendChild(getPicture(picts[i]));
@@ -30,13 +30,14 @@
   };
 
   var onSuccess = function (picts) {
-    var data = picts;
-    // console.log(data);
+    picturesArr = picts;
     insertPhoto(picts);
+  };
 
-    window.pictures = {
-      data: data,
-    };
+  var clearPictures = function () {
+    picturesElement.querySelectorAll('.picture').forEach(function (element) {
+      element.remove();
+    });
   };
 
   window.server.load(onSuccess);
@@ -57,17 +58,14 @@
   document.addEventListener('keydown', onOverlayEscPress);
 
 
-  var getArray = function (data) {
-    var array = data;
-    return array;
-    console.log(array);
+  var getArray = function () {
+    return picturesArr;
   };
 
-  // getArray();
   window.pictures = {
     insertPhoto: insertPhoto,
     getArray: getArray,
+    clearPictures: clearPictures,
   };
-  console.log(window.pictures.insertPhoto);
 
 })();
