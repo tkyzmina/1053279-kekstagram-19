@@ -6,6 +6,7 @@
   var socialCommentItem = document.querySelector('.social__comment');
   var commentCount = document.querySelector('.social__comment-count');
   var commentsAddBtn = document.querySelector('.comments-loader');
+  var restComments;
 
   var show = function (objData) {
     bigPicture.classList.remove('hidden');
@@ -16,7 +17,8 @@
 
     var commentsArrLengt = objData.comments.length;
     var commentsArray = objData.comments;
-
+    restComments = commentsArray.slice(0);
+    console.log(restComments);
     renderComments(prepareComments(commentsArray));
 
   };
@@ -39,7 +41,7 @@
   };
 
   commentsAddBtn.addEventListener('click', function () {
-
+    renderComments(prepareComments(restComments));
   });
   // _______________________________________________
 
