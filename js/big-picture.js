@@ -1,5 +1,6 @@
 'use strict';
 (function () {
+  var COMMENTS_SHOW = 5;
   var bigPicture = document.querySelector('.big-picture');
   var socialComments = document.querySelector('.social__comments');
   var socialCommentItem = document.querySelector('.social__comment');
@@ -13,34 +14,34 @@
     bigPicture.querySelector('.social__caption').textContent = objData.description;
 
 
-    // ??????????????????????????
     var commentsArrLengt = objData.comments.length;
     var commentsArray = objData.comments;
-    if (commentsArrLengt <= 5) {
-      commentsAddBtn.classList.add('hidden');
-    }
-    t(objData.comments);
-    // ++++++++++++++++++++++++++++
 
-    renderComments(commentsArray);
-    // rendrXXX(commentsArray);
-
+    renderComments(prepareComments(commentsArray));
 
   };
+  // ___________________________________________________
 
+  var commentsCounter = function (arr) {
+    for (var i = 0; i <= arr.length; i++) {
+      commentCount.textContent = i + ' из ' + arr.length + ' комментариев';
+    }
+  };
 
-  // var rendrXXX = function (array) {
-  //   socialComments.innerHTML = '';
-  //   var fragment = document.createDocumentFragment();
-  //   var item;
-  //   for (var i = 0; i <= array.length; i++) {
-  //     var element = getComment(item);
-  //     fragment.appendChild(element);
-  //     socialComments.appendChild(fragment);
-  //   }
+  var prepareComments = function (comments) {
+    if (comments.length > COMMENTS_SHOW) {
+      commentsAddBtn.classList.remove('hidden');
+      commentsCounter(comments);
+      return comments.splice(0, COMMENTS_SHOW);
+    }
+    commentsAddBtn.classList.add('hidden');
+    return comments.splice(0, comments.length);
+  };
 
-  // };
+  commentsAddBtn.addEventListener('click', function () {
 
+  });
+  // _______________________________________________
 
   var renderComments = function (array) {
     socialComments.innerHTML = '';
@@ -60,12 +61,6 @@
     cloneComment.querySelector('.social__text').textContent = obj.message;
 
     return cloneComment;
-  };
-
-  var t = function (arr) {
-    for (var i = 0; i <= arr.length; i++) {
-      commentCount.textContent = i + ' из ' + arr.length + ' комментариев';
-    }
   };
 
   window.bigPicture = {
