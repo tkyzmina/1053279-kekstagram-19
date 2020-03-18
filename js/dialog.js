@@ -29,7 +29,8 @@
   uploadFilePress.addEventListener('change', function () {
     body.classList.add('modal-open');
     overlay.classList.remove('hidden');
-
+    window.previewScale.defaultSize();
+    window.effectsApply.clearFilter();
   });
 
   var onOverlayEscPress = function (evt) {
@@ -43,10 +44,12 @@
     document.addEventListener('keydown', onOverlayEscPress);
     body.classList.remove('modal-open');
     uploadFilePress.value = '';
+    window.previewScale.defaultSize();
+    window.effectsApply.clearFilter();
   };
 
   overlayCloseBtn.addEventListener('keydown', function (evt) {
-    if (evt.key) {
+    if (evt.key === window.utils.ENTER_KEY) {
       overlayClose();
     }
   });

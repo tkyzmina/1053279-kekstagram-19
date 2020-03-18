@@ -24,7 +24,7 @@
     imgEffects.classList.remove('hidden');
     if (evt.target.value === 'none') {
       imgEffects.classList.add('hidden');
-
+      imgUpload.style.filter = '';
     }
     setEffectLevel(100);
   });
@@ -100,6 +100,16 @@
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
-
   });
+
+  var clearFilter = function () {
+    imgUpload.style.filter = '';
+    setEffectLevel(100);
+    effectValue.value = '100';
+    imgEffects.classList.add('hidden');
+  };
+
+  window.effectsApply = {
+    clearFilter: clearFilter,
+  };
 })();

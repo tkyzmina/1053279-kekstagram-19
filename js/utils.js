@@ -1,6 +1,7 @@
 'use strict';
 (function () {
   var ESC_KEY = 'Escape';
+  var ENTER_KEY = 'Enter';
 
   var closeElement = function (element) {
     if (element) {
@@ -10,6 +11,7 @@
 
   window.utils = {
     ESC_KEY: ESC_KEY,
+    ENTER_KEY: ENTER_KEY,
     closeElement: closeElement,
   };
 
