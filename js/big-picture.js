@@ -7,6 +7,7 @@
   var commentCount = document.querySelector('.social__comment-count');
   var commentsAddBtn = document.querySelector('.comments-loader');
   var restComments;
+  var startIndex = 0;
 
   var show = function (objData) {
     bigPicture.classList.remove('hidden');
@@ -14,46 +15,43 @@
     bigPicture.querySelector('.likes-count').textContent = objData.likes;
     bigPicture.querySelector('.social__caption').textContent = objData.description;
 
-
-    var commentsArrLengt = objData.comments.length;
-    var commentsArray = objData.comments;
-    restComments = commentsArray.slice(0);
-    console.log(restComments);
-    renderComments(prepareComments(commentsArray));
-
+    renderComments(objData.comments);
   };
-  // ___________________________________________________
 
-  var commentsCounter = function (arr) {
-    for (var i = 0; i <= arr.length; i++) {
-      commentCount.textContent = i + ' из ' + arr.length + ' комментариев';
+  var commentsCounter = function () {
+    if (startIndex >= restComments.length) {
+      commentCount.textContent = restComments.length + ' из ' + restComments.length + ' комментариев';
+    } else {
+      commentCount.textContent = startIndex + ' из ' + restComments.length + ' комментариев';
     }
   };
 
-  var prepareComments = function (comments) {
-    if (comments.length > COMMENTS_SHOW) {
-      commentsAddBtn.classList.remove('hidden');
-      commentsCounter(comments);
-      return comments.splice(0, COMMENTS_SHOW);
-    }
-    commentsAddBtn.classList.add('hidden');
-    return comments.splice(0, comments.length);
-  };
-
-  commentsAddBtn.addEventListener('click', function () {
-    renderComments(prepareComments(restComments));
-  });
-  // _______________________________________________
-
-  var renderComments = function (array) {
-    socialComments.innerHTML = '';
+  var loadNextComments = function () {
+    var nextComments = restComments.slice(startIndex, startIndex + COMMENTS_SHOW);
     var fragment = document.createDocumentFragment();
-
-    array.forEach(function (item) {
+    nextComments.forEach(function (item) {
       var element = getComment(item);
       fragment.appendChild(element);
     });
     socialComments.appendChild(fragment);
+    startIndex += COMMENTS_SHOW;
+
+    if (startIndex >= restComments.length) {
+      commentsAddBtn.classList.add('hidden');
+    }
+    commentsCounter();
+  };
+
+  commentsAddBtn.addEventListener('click', function () {
+    loadNextComments();
+  });
+
+  var renderComments = function (array) {
+    socialComments.innerHTML = '';
+    restComments = array.slice();
+    startIndex = 0;
+    commentsAddBtn.classList.remove('hidden');
+    loadNextComments();
   };
 
   var getComment = function (obj) {
@@ -68,5 +66,4 @@
   window.bigPicture = {
     show: show,
   };
-
 })();
