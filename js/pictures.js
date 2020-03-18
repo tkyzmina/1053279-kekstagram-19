@@ -19,7 +19,6 @@
   var picturesArr = [];
 
   var insertPhoto = function (picts) {
-    // picturesArr = picts;
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < picts.length; i++) {
       fragment.appendChild(getPicture(picts[i]));
@@ -55,6 +54,7 @@
       window.utils.closeElement(bigPicture);
     }
   };
+
   document.addEventListener('keydown', onOverlayEscPress);
 
 
@@ -67,5 +67,4 @@
     getArray: getArray,
     clearPictures: clearPictures,
   };
-
 })();

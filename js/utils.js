@@ -14,5 +14,4 @@
     ENTER_KEY: ENTER_KEY,
     closeElement: closeElement,
   };
-
 })();

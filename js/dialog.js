@@ -111,7 +111,6 @@
     var element = templateSuccess.cloneNode(true);
     main.appendChild(element);
 
-
     var closeBtn = element.querySelector('.success__button');
     var successMessage = document.querySelector('.success');
 
@@ -133,5 +132,4 @@
   window.dialog = {
     overlayClose: overlayClose,
   };
-
 })();
