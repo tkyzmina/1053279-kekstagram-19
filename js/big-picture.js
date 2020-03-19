@@ -18,6 +18,22 @@
     renderComments(objData.comments);
   };
 
+  var bigPictureClose = bigPicture.querySelector('.big-picture__cancel');
+
+  bigPictureClose.addEventListener('click', function () {
+    window.utils.closeElement(bigPicture);
+  });
+
+  var onOverlayEscPress = function (evt) {
+    if (evt.key === window.utils.ESC_KEY) {
+      window.utils.closeElement(bigPicture);
+      // document.removeEventListener('keydown', onOverlayEscPress);
+    }
+  };
+
+  document.addEventListener('keydown', onOverlayEscPress);
+
+
   var commentsCounter = function () {
     if (startIndex >= restComments.length) {
       commentCount.textContent = restComments.length + ' из ' + restComments.length + ' комментариев';

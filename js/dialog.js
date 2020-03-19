@@ -94,6 +94,7 @@
     document.addEventListener('keydown', function (evtEsc) {
       if (evtEsc.key === window.utils.ESC_KEY) {
         errorMessage.remove();
+
       }
     });
 

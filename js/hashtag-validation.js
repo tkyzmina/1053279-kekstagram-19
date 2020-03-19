@@ -47,7 +47,7 @@
     }
   };
 
-  inputHashtags.addEventListener('change', hashtagCheck);
+  inputHashtags.addEventListener('input', hashtagCheck);
 
   var commentCheck = function () {
     var commentContent = inputComment.value;
