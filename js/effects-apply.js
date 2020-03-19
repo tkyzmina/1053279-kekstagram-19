@@ -1,10 +1,11 @@
 'use strict';
 (function () {
+  var MAX_PERCENT = 100;
   var effectsList = document.querySelector('.effects__list');
   var imgUpload = document.querySelector('.img-upload__preview');
   var imgEffects = document.querySelector('.img-upload__effect-level');
   var effectValue = document.querySelector('.effect-level__value');
-  effectValue.value = 100;
+  effectValue.value = MAX_PERCENT;
 
   imgEffects.classList.add('hidden');
 
@@ -18,7 +19,7 @@
   };
 
   effectsList.addEventListener('change', function (evt) {
-    setEffectLevel(100);
+    setEffectLevel(MAX_PERCENT);
     effectValue.value = '100';
     clearClass();
     imgEffects.classList.remove('hidden');
@@ -34,7 +35,7 @@
   var effectLevel = document.querySelector('.effect-level__depth');
 
   var setEffectLevel = function (level) {
-    var x = level / 100 * sliderField.offsetWidth;
+    var x = level / MAX_PERCENT * sliderField.offsetWidth;
     sliderPin.style.left = x + 'px';
     effectLevel.style.width = x + 'px';
 
@@ -46,20 +47,21 @@
     // Для эффекта «Фобос» — filter: blur(0..3px);
     // Для эффекта «Зной» — filter: brightness(1..3);
 
-    var blurBrigtnessLevel = 3 * level / 100;
+    var blurBrigtnessLevel = blurmax * level / MAX_PERCENT;
     var heatmin = 1;
     var heatmax = 3;
-    var brightness = heatmin + (heatmax - heatmin) * level / 100;
+    var blurmax = 3;
+    var brightness = heatmin + (heatmax - heatmin) * level / MAX_PERCENT;
 
     var checkedEffect = effectsList.querySelector('.effects__radio:checked');
     switch (checkedEffect.value) {
       case 'chrome':
         imgUpload.style.filter = '';
-        imgUpload.style.filter = 'grayscale(' + (level) / 100 + ')';
+        imgUpload.style.filter = 'grayscale(' + (level) / MAX_PERCENT + ')';
         break;
       case 'sepia':
         imgUpload.style.filter = '';
-        imgUpload.style.filter = 'sepia(' + (level) / 100 + ')';
+        imgUpload.style.filter = 'sepia(' + (level) / MAX_PERCENT + ')';
         break;
       case 'marvin':
         imgUpload.style.filter = '';
@@ -88,7 +90,7 @@
       sliderLocation = Math.min(sliderLocation, sliderField.offsetWidth);
       sliderLocation = Math.max(sliderLocation, 0);
 
-      var percentage = Math.round(sliderLocation / sliderField.offsetWidth * 100);
+      var percentage = Math.round(sliderLocation / sliderField.offsetWidth * MAX_PERCENT);
       setEffectLevel(percentage);
 
     };
