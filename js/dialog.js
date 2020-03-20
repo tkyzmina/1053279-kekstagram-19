@@ -37,7 +37,6 @@
   var onOverlayEscPress = function (evt) {
     if (!booleanHashtagsInput === true && !booleanTextComment === true && evt.key === window.utils.ESC_KEY) {
       overlayClose();
-      document.removeEventListener('keydown', onOverlayEscPress);
     }
   };
 
@@ -47,19 +46,12 @@
     uploadFilePress.value = '';
     window.previewScale.defaultSize();
     window.effectsApply.clearFilter();
+    document.removeEventListener('keydown', onOverlayEscPress);
   };
-
-  overlayCloseBtn.addEventListener('keydown', function (evt) {
-    if (evt.key === window.utils.ENTER_KEY) {
-      overlayClose();
-    }
-  });
 
   overlayCloseBtn.addEventListener('click', function () {
     overlayClose();
-    document.removeEventListener('keydown', onOverlayEscPress);
   });
-
 
   // UPLOAD
   var uploadForm = document.querySelector('.img-upload__form');
@@ -67,95 +59,25 @@
   var descriptionText = uploadForm.querySelector('.text__description');
 
   uploadForm.addEventListener('submit', function (evt) {
-    window.server.upload(new FormData(uploadForm), succesUpload, errorUpload);
     evt.preventDefault();
-    clearUploadForm();
+    window.server.upload(new FormData(uploadForm), onSuccess, onError);
   });
 
+  var onSuccess = function () {
+    clearUploadForm();
+    overlayClose();
+    window.message.showSuccess();
+  };
+
+  var onError = function (error) {
+    clearUploadForm();
+    overlayClose();
+    window.message.showError(error);
+  };
 
   var clearUploadForm = function () {
     hashtag.value = '';
     descriptionText.value = '';
-  };
-
-  var errorUpload = function () {
-    overlayClose();
-
-    var main = document.querySelector('main');
-    var templateError = document.querySelector('#error').content.querySelector('.error');
-    var element = templateError.cloneNode(true);
-    main.appendChild(element);
-
-    var errorBtn = element.querySelector('.error__button');
-    var errorMessage = document.querySelector('.error');
-
-    errorBtn.addEventListener('click', function () {
-      errorMessage.remove();
-      removeHandlersError();
-    });
-
-    var onMessageEscPress = function (evtEsc) {
-      if (evtEsc.key === window.utils.ESC_KEY) {
-        errorMessage.remove();
-        removeHandlersError();
-      }
-    };
-
-    var onAreaAroundMessageClick = function (evt) {
-      if (evt.target.classList.contains('error')) {
-        errorMessage.remove();
-        removeHandlersError();
-      }
-    };
-
-    var removeHandlersError = function () {
-      document.removeEventListener('click', onAreaAroundMessageClick);
-      document.removeEventListener('keydown', onMessageEscPress);
-    };
-    document.addEventListener('keydown', onMessageEscPress);
-    document.addEventListener('click', onAreaAroundMessageClick);
-  };
-
-
-  var succesUpload = function () {
-    overlayClose();
-
-    var main = document.querySelector('main');
-    var templateSuccess = document.querySelector('#success').content.querySelector('.success');
-    var element = templateSuccess.cloneNode(true);
-    main.appendChild(element);
-
-    var closeBtn = element.querySelector('.success__button');
-    var successMessage = document.querySelector('.success');
-
-
-    closeBtn.addEventListener('click', function () {
-      successMessage.remove();
-      removeHandlersSuccess();
-    });
-
-    var onMessageEscPress = function (evtEsc) {
-      if (evtEsc.key === window.utils.ESC_KEY) {
-        successMessage.remove();
-        removeHandlersSuccess();
-      }
-    };
-
-    var onAreaAroundMessageClick = function (evt) {
-      if (evt.target.classList.contains('success')) {
-        successMessage.remove();
-        removeHandlersSuccess();
-      }
-    };
-
-    var removeHandlersSuccess = function () {
-      document.removeEventListener('click', onAreaAroundMessageClick);
-      document.removeEventListener('keydown', onMessageEscPress);
-    };
-
-    document.addEventListener('keydown', onMessageEscPress);
-    document.addEventListener('click', onAreaAroundMessageClick);
-
   };
 
   window.dialog = {
