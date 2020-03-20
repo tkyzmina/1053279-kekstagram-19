@@ -16,6 +16,7 @@
     bigPicture.querySelector('.social__caption').textContent = objData.description;
 
     renderComments(objData.comments);
+    document.addEventListener('keydown', onOverlayEscPress);
   };
 
   var bigPictureClose = bigPicture.querySelector('.big-picture__cancel');
@@ -27,12 +28,9 @@
   var onOverlayEscPress = function (evt) {
     if (evt.key === window.utils.ESC_KEY) {
       window.utils.closeElement(bigPicture);
-      // document.removeEventListener('keydown', onOverlayEscPress);
+      document.removeEventListener('keydown', onOverlayEscPress);
     }
   };
-
-  document.addEventListener('keydown', onOverlayEscPress);
-
 
   var commentsCounter = function () {
     if (startIndex >= restComments.length) {

@@ -6,7 +6,7 @@
   var overlayCloseBtn = overlay.querySelector('.img-upload__cancel');
   var inputHashtags = document.querySelector('.text__hashtags');
   var inputTextComment = document.querySelector('.text__description');
-  var booleanHashtagsInput = true;
+  var booleanHashtagsInput = false;
   var booleanTextComment;
 
 
@@ -31,17 +31,18 @@
     overlay.classList.remove('hidden');
     window.previewScale.defaultSize();
     window.effectsApply.clearFilter();
+    document.addEventListener('keydown', onOverlayEscPress);
   });
 
   var onOverlayEscPress = function (evt) {
     if (!booleanHashtagsInput === true && !booleanTextComment === true && evt.key === window.utils.ESC_KEY) {
       overlayClose();
+      document.removeEventListener('keydown', onOverlayEscPress);
     }
   };
 
   var overlayClose = function () {
     overlay.classList.add('hidden');
-    document.addEventListener('keydown', onOverlayEscPress);
     body.classList.remove('modal-open');
     uploadFilePress.value = '';
     window.previewScale.defaultSize();
@@ -56,6 +57,7 @@
 
   overlayCloseBtn.addEventListener('click', function () {
     overlayClose();
+    document.removeEventListener('keydown', onOverlayEscPress);
   });
 
 
@@ -89,18 +91,29 @@
 
     errorBtn.addEventListener('click', function () {
       errorMessage.remove();
+      removeHandlersError();
     });
 
-    document.addEventListener('keydown', function (evtEsc) {
+    var onMessageEscPress = function (evtEsc) {
       if (evtEsc.key === window.utils.ESC_KEY) {
         errorMessage.remove();
-
+        removeHandlersError();
       }
-    });
+    };
 
-    document.addEventListener('click', function () {
-      errorMessage.remove();
-    });
+    var onAreaAroundMessageClick = function (evt) {
+      if (evt.target.classList.contains('error')) {
+        errorMessage.remove();
+        removeHandlersError();
+      }
+    };
+
+    var removeHandlersError = function () {
+      document.removeEventListener('click', onAreaAroundMessageClick);
+      document.removeEventListener('keydown', onMessageEscPress);
+    };
+    document.addEventListener('keydown', onMessageEscPress);
+    document.addEventListener('click', onAreaAroundMessageClick);
   };
 
 
@@ -115,19 +128,34 @@
     var closeBtn = element.querySelector('.success__button');
     var successMessage = document.querySelector('.success');
 
+
     closeBtn.addEventListener('click', function () {
       successMessage.remove();
+      removeHandlersSuccess();
     });
 
-    document.addEventListener('keydown', function (evtEsc) {
+    var onMessageEscPress = function (evtEsc) {
       if (evtEsc.key === window.utils.ESC_KEY) {
         successMessage.remove();
+        removeHandlersSuccess();
       }
-    });
+    };
 
-    document.addEventListener('click', function () {
-      successMessage.remove();
-    });
+    var onAreaAroundMessageClick = function (evt) {
+      if (evt.target.classList.contains('success')) {
+        successMessage.remove();
+        removeHandlersSuccess();
+      }
+    };
+
+    var removeHandlersSuccess = function () {
+      document.removeEventListener('click', onAreaAroundMessageClick);
+      document.removeEventListener('keydown', onMessageEscPress);
+    };
+
+    document.addEventListener('keydown', onMessageEscPress);
+    document.addEventListener('click', onAreaAroundMessageClick);
+
   };
 
   window.dialog = {
