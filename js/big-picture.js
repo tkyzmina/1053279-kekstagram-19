@@ -2,10 +2,10 @@
 (function () {
   var COMMENTS_SHOW = 5;
   var bigPicture = document.querySelector('.big-picture');
-  var socialComments = document.querySelector('.social__comments');
-  var socialCommentItem = document.querySelector('.social__comment');
-  var commentCount = document.querySelector('.social__comment-count');
-  var commentsAddBtn = document.querySelector('.comments-loader');
+  var socialComments = bigPicture.querySelector('.social__comments');
+  var socialCommentItem = bigPicture.querySelector('.social__comment');
+  var commentCount = bigPicture.querySelector('.social__comment-count');
+  var commentsAddBtn = bigPicture.querySelector('.comments-loader');
   var restComments;
   var startIndex = 0;
 
@@ -16,6 +16,24 @@
     bigPicture.querySelector('.social__caption').textContent = objData.description;
 
     renderComments(objData.comments);
+    document.addEventListener('keydown', onOverlayEscPress);
+  };
+
+  var close = function () {
+    bigPicture.classList.add('hidden');
+    document.removeEventListener('keydown', onOverlayEscPress);
+  };
+
+  var bigPictureClose = bigPicture.querySelector('.big-picture__cancel');
+
+  bigPictureClose.addEventListener('click', function () {
+    close();
+  });
+
+  var onOverlayEscPress = function (evt) {
+    if (evt.key === window.utils.ESC_KEY) {
+      close();
+    }
   };
 
   var commentsCounter = function () {

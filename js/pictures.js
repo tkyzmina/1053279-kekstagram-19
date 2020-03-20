@@ -19,7 +19,6 @@
   var picturesArr = [];
 
   var insertPhoto = function (picts) {
-    // picturesArr = picts;
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < picts.length; i++) {
       fragment.appendChild(getPicture(picts[i]));
@@ -41,22 +40,7 @@
   };
 
   window.server.load(onSuccess);
-
-  var bigPicture = document.querySelector('.big-picture');
   var picturesElement = document.querySelector('.pictures');
-  var bigPictureClose = bigPicture.querySelector('.big-picture__cancel');
-
-  bigPictureClose.addEventListener('click', function () {
-    window.utils.closeElement(bigPicture);
-  });
-
-  var onOverlayEscPress = function (evt) {
-    if (evt.key === window.utils.ESC_KEY) {
-      window.utils.closeElement(bigPicture);
-    }
-  };
-  document.addEventListener('keydown', onOverlayEscPress);
-
 
   var getArray = function () {
     return picturesArr;
@@ -67,5 +51,4 @@
     getArray: getArray,
     clearPictures: clearPictures,
   };
-
 })();

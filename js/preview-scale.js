@@ -8,6 +8,11 @@
   var scaleValue = document.querySelector('.scale__control--value');
   var previewSize = document.querySelector('.img-upload__preview');
 
+  var defaultSize = function () {
+    previewSize.style.transform = 'scale(1)';
+    previewSize.style.filter = '';
+  };
+
   onScaleSmaller.addEventListener('click', function () {
     var value = scaleValue.value.slice(0, -1);
     var valueNumber = +value;
@@ -32,4 +37,8 @@
       previewSize.style.transform = 'scale(' + (newValue) / MAX + ')';
     }
   });
+
+  window.previewScale = {
+    defaultSize: defaultSize,
+  };
 })();

@@ -6,7 +6,7 @@
   var overlayCloseBtn = overlay.querySelector('.img-upload__cancel');
   var inputHashtags = document.querySelector('.text__hashtags');
   var inputTextComment = document.querySelector('.text__description');
-  var booleanHashtagsInput = true;
+  var booleanHashtagsInput = false;
   var booleanTextComment;
 
 
@@ -29,7 +29,9 @@
   uploadFilePress.addEventListener('change', function () {
     body.classList.add('modal-open');
     overlay.classList.remove('hidden');
-
+    window.previewScale.defaultSize();
+    window.effectsApply.clearFilter();
+    document.addEventListener('keydown', onOverlayEscPress);
   });
 
   var onOverlayEscPress = function (evt) {
@@ -40,21 +42,16 @@
 
   var overlayClose = function () {
     overlay.classList.add('hidden');
-    document.addEventListener('keydown', onOverlayEscPress);
     body.classList.remove('modal-open');
     uploadFilePress.value = '';
+    window.previewScale.defaultSize();
+    window.effectsApply.clearFilter();
+    document.removeEventListener('keydown', onOverlayEscPress);
   };
-
-  overlayCloseBtn.addEventListener('keydown', function (evt) {
-    if (evt.key) {
-      overlayClose();
-    }
-  });
 
   overlayCloseBtn.addEventListener('click', function () {
     overlayClose();
   });
-
 
   // UPLOAD
   var uploadForm = document.querySelector('.img-upload__form');
@@ -62,73 +59,28 @@
   var descriptionText = uploadForm.querySelector('.text__description');
 
   uploadForm.addEventListener('submit', function (evt) {
-    window.server.upload(new FormData(uploadForm), succesUpload, errorUpload);
     evt.preventDefault();
-    clearUploadForm();
+    window.server.upload(new FormData(uploadForm), onSuccess, onError);
   });
 
+  var onSuccess = function () {
+    clearUploadForm();
+    overlayClose();
+    window.message.showSuccess();
+  };
+
+  var onError = function (error) {
+    clearUploadForm();
+    overlayClose();
+    window.message.showError(error);
+  };
 
   var clearUploadForm = function () {
     hashtag.value = '';
     descriptionText.value = '';
   };
 
-  var errorUpload = function () {
-    overlayClose();
-
-    var main = document.querySelector('main');
-    var templateError = document.querySelector('#error').content.querySelector('.error');
-    var element = templateError.cloneNode(true);
-    main.appendChild(element);
-
-    var errorBtn = element.querySelector('.error__button');
-    var errorMessage = document.querySelector('.error');
-
-    errorBtn.addEventListener('click', function () {
-      errorMessage.remove();
-    });
-
-    document.addEventListener('keydown', function (evtEsc) {
-      if (evtEsc.key === window.utils.ESC_KEY) {
-        errorMessage.remove();
-      }
-    });
-
-    document.addEventListener('click', function () {
-      errorMessage.remove();
-    });
-  };
-
-
-  var succesUpload = function () {
-    overlayClose();
-
-    var main = document.querySelector('main');
-    var templateSuccess = document.querySelector('#success').content.querySelector('.success');
-    var element = templateSuccess.cloneNode(true);
-    main.appendChild(element);
-
-
-    var closeBtn = element.querySelector('.success__button');
-    var successMessage = document.querySelector('.success');
-
-    closeBtn.addEventListener('click', function () {
-      successMessage.remove();
-    });
-
-    document.addEventListener('keydown', function (evtEsc) {
-      if (evtEsc.key === window.utils.ESC_KEY) {
-        successMessage.remove();
-      }
-    });
-
-    document.addEventListener('click', function () {
-      successMessage.remove();
-    });
-  };
-
   window.dialog = {
     overlayClose: overlayClose,
   };
-
 })();
