@@ -28,7 +28,7 @@
 
   effectsList.addEventListener('change', function (evt) {
     setEffectLevel(PERCENT_MAX);
-    effectValue.value = '100';
+    effectValue.value = 'PERCENT_MAX';
     clearClass();
     imageEffects.classList.remove('hidden');
     if (evt.target.value === 'none') {

@@ -27,7 +27,6 @@
   });
 
   uploadFilePress.addEventListener('change', function () {
-    // debugger;
     body.classList.add('modal-open');
     overlay.classList.remove('hidden');
     window.previewScale.setDefaultSize();
@@ -36,7 +35,7 @@
   });
 
   var onOverlayEscPress = function (evt) {
-    if (!booleanHashtagsInput === true && !booleanTextComment === true && evt.key === window.utils.ESC_KEY) {
+    if (!booleanHashtagsInput && !booleanTextComment && evt.key === window.utils.ESC_KEY) {
       overlayClose();
     }
   };

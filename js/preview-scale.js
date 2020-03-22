@@ -11,7 +11,6 @@
   var setDefaultSize = function () {
     previewSize.style.filter = 'none';
     previewSize.style.transform = 'scale(1)';
-
     scaleValue.value = MAX + '%';
   };
 
