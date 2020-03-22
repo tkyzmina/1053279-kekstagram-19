@@ -31,9 +31,9 @@
 
   };
 
-  var onSuccess = function (picts) {
-    picturesArr = picts;
-    insertPhoto(picts);
+  var onSuccess = function (pictures) {
+    picturesArr = pictures;
+    insertPhoto(pictures);
   };
 
   var clearPictures = function () {

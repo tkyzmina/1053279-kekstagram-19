@@ -9,10 +9,10 @@
   var imageEffects = document.querySelector('.img-upload__effect-level');
   var effectValue = document.querySelector('.effect-level__value');
   effectValue.value = PERCENT_MAX;
-  var none = effectsList.querySelector('#effect-none');
+  var effectNone = effectsList.querySelector('#effect-none');
 
   var makeCheckedNone = function () {
-    none.checked = true;
+    effectNone.checked = true;
   };
 
   imageEffects.classList.add('hidden');

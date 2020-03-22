@@ -19,9 +19,9 @@
     }
 
     // проверка на повторющиеся элементы
-    var hasDuplicates = function (arr) {
-      return arr.some(function (item) {
-        return arr.indexOf(item) !== arr.lastIndexOf(item);
+    var hasDuplicates = function (array) {
+      return array.some(function (item) {
+        return array.indexOf(item) !== array.lastIndexOf(item);
       });
     };
 
