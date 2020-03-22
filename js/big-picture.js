@@ -5,7 +5,7 @@
   var socialComments = bigPicture.querySelector('.social__comments');
   var socialCommentItem = bigPicture.querySelector('.social__comment');
   var commentCount = bigPicture.querySelector('.social__comment-count');
-  var commentsAddBtn = bigPicture.querySelector('.comments-loader');
+  var commentsAddButton = bigPicture.querySelector('.comments-loader');
   var restComments;
   var startIndex = 0;
 
@@ -36,7 +36,7 @@
     }
   };
 
-  var commentsCounter = function () {
+  var updateCommentsCounter = function () {
     if (startIndex >= restComments.length) {
       commentCount.textContent = restComments.length + ' из ' + restComments.length + ' комментариев';
     } else {
@@ -55,12 +55,12 @@
     startIndex += COMMENTS_SHOW;
 
     if (startIndex >= restComments.length) {
-      commentsAddBtn.classList.add('hidden');
+      commentsAddButton.classList.add('hidden');
     }
-    commentsCounter();
+    updateCommentsCounter();
   };
 
-  commentsAddBtn.addEventListener('click', function () {
+  commentsAddButton.addEventListener('click', function () {
     loadNextComments();
   });
 
@@ -68,7 +68,7 @@
     socialComments.innerHTML = '';
     restComments = array.slice();
     startIndex = 0;
-    commentsAddBtn.classList.remove('hidden');
+    commentsAddButton.classList.remove('hidden');
     loadNextComments();
   };
 

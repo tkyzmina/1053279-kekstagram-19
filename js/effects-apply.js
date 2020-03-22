@@ -1,33 +1,41 @@
 'use strict';
 (function () {
-  var MAX_PERCENT = 100;
+  var PERCENT_MAX = 100;
+  var HEAT_MIN = 1;
+  var HEAT_MAX = 3;
+  var BLUR_MAX = 3;
   var effectsList = document.querySelector('.effects__list');
-  var imgUpload = document.querySelector('.img-upload__preview');
-  var imgEffects = document.querySelector('.img-upload__effect-level');
+  var imageUpload = document.querySelector('.img-upload__preview img');
+  var imageEffects = document.querySelector('.img-upload__effect-level');
   var effectValue = document.querySelector('.effect-level__value');
-  effectValue.value = MAX_PERCENT;
+  effectValue.value = PERCENT_MAX;
+  var none = effectsList.querySelector('#effect-none');
 
-  imgEffects.classList.add('hidden');
+  var makeCheckedNone = function () {
+    none.checked = true;
+  };
+
+  imageEffects.classList.add('hidden');
 
   // очищает классы начинающиеся на effects
   var clearClass = function () {
     var startsWith = 'effects';
-    var classes = imgUpload.className.split(' ').filter(function (v) {
-      return v.lastIndexOf(startsWith, 0) !== 0;
+    var classes = imageUpload.className.split(' ').filter(function (nameOfClass) {
+      return nameOfClass.lastIndexOf(startsWith, 0) !== 0;
     });
-    imgUpload.className = classes.join(' ').trim();
+    imageUpload.className = classes.join(' ').trim();
   };
 
   effectsList.addEventListener('change', function (evt) {
-    setEffectLevel(MAX_PERCENT);
+    setEffectLevel(PERCENT_MAX);
     effectValue.value = '100';
     clearClass();
-    imgEffects.classList.remove('hidden');
+    imageEffects.classList.remove('hidden');
     if (evt.target.value === 'none') {
-      imgEffects.classList.add('hidden');
-      imgUpload.style.filter = '';
+      imageEffects.classList.add('hidden');
+      imageUpload.style.filter = '';
     }
-    setEffectLevel(100);
+    setEffectLevel(PERCENT_MAX);
   });
 
   var sliderField = document.querySelector('.effect-level__line');
@@ -35,7 +43,7 @@
   var effectLevel = document.querySelector('.effect-level__depth');
 
   var setEffectLevel = function (level) {
-    var x = level / MAX_PERCENT * sliderField.offsetWidth;
+    var x = level / PERCENT_MAX * sliderField.offsetWidth;
     sliderPin.style.left = x + 'px';
     effectLevel.style.width = x + 'px';
 
@@ -47,33 +55,31 @@
     // Для эффекта «Фобос» — filter: blur(0..3px);
     // Для эффекта «Зной» — filter: brightness(1..3);
 
-    var blurBrigtnessLevel = blurmax * level / MAX_PERCENT;
-    var heatmin = 1;
-    var heatmax = 3;
-    var blurmax = 3;
-    var brightness = heatmin + (heatmax - heatmin) * level / MAX_PERCENT;
+    var blurBrightnessLevel = BLUR_MAX * level / PERCENT_MAX;
+
+    var brightness = HEAT_MIN + (HEAT_MAX - HEAT_MIN) * level / PERCENT_MAX;
 
     var checkedEffect = effectsList.querySelector('.effects__radio:checked');
     switch (checkedEffect.value) {
       case 'chrome':
-        imgUpload.style.filter = '';
-        imgUpload.style.filter = 'grayscale(' + (level) / MAX_PERCENT + ')';
+        imageUpload.style.filter = '';
+        imageUpload.style.filter = 'grayscale(' + (level) / PERCENT_MAX + ')';
         break;
       case 'sepia':
-        imgUpload.style.filter = '';
-        imgUpload.style.filter = 'sepia(' + (level) / MAX_PERCENT + ')';
+        imageUpload.style.filter = '';
+        imageUpload.style.filter = 'sepia(' + (level) / PERCENT_MAX + ')';
         break;
       case 'marvin':
-        imgUpload.style.filter = '';
-        imgUpload.style.filter = 'invert(' + (level) + '%)';
+        imageUpload.style.filter = '';
+        imageUpload.style.filter = 'invert(' + (level) + '%)';
         break;
       case 'phobos':
-        imgUpload.style.filter = '';
-        imgUpload.style.filter = 'blur(' + blurBrigtnessLevel + 'px)';
+        imageUpload.style.filter = '';
+        imageUpload.style.filter = 'blur(' + blurBrightnessLevel + 'px)';
         break;
       case 'heat':
-        imgUpload.style.filter = '';
-        imgUpload.style.filter = 'brightness(' + brightness + ')';
+        imageUpload.style.filter = '';
+        imageUpload.style.filter = 'brightness(' + brightness + ')';
         break;
     }
   };
@@ -90,7 +96,7 @@
       sliderLocation = Math.min(sliderLocation, sliderField.offsetWidth);
       sliderLocation = Math.max(sliderLocation, 0);
 
-      var percentage = Math.round(sliderLocation / sliderField.offsetWidth * MAX_PERCENT);
+      var percentage = Math.round(sliderLocation / sliderField.offsetWidth * PERCENT_MAX);
       setEffectLevel(percentage);
 
     };
@@ -105,10 +111,11 @@
   });
 
   var clearFilter = function () {
-    imgUpload.style.filter = '';
-    setEffectLevel(100);
-    effectValue.value = '100';
-    imgEffects.classList.add('hidden');
+    clearClass();
+    makeCheckedNone();
+    setEffectLevel(PERCENT_MAX);
+    effectValue.value = 'PERCENT_MAX';
+    imageEffects.classList.add('hidden');
   };
 
   window.effectsApply = {

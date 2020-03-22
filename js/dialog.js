@@ -3,7 +3,7 @@
   var uploadFilePress = document.querySelector('#upload-file');
   var body = document.querySelector('body');
   var overlay = document.querySelector('.img-upload__overlay');
-  var overlayCloseBtn = overlay.querySelector('.img-upload__cancel');
+  var overlayCloseButton = overlay.querySelector('.img-upload__cancel');
   var inputHashtags = document.querySelector('.text__hashtags');
   var inputTextComment = document.querySelector('.text__description');
   var booleanHashtagsInput = false;
@@ -27,9 +27,10 @@
   });
 
   uploadFilePress.addEventListener('change', function () {
+    // debugger;
     body.classList.add('modal-open');
     overlay.classList.remove('hidden');
-    window.previewScale.defaultSize();
+    window.previewScale.setDefaultSize();
     window.effectsApply.clearFilter();
     document.addEventListener('keydown', onOverlayEscPress);
   });
@@ -44,12 +45,12 @@
     overlay.classList.add('hidden');
     body.classList.remove('modal-open');
     uploadFilePress.value = '';
-    window.previewScale.defaultSize();
+    window.previewScale.setDefaultSize();
     window.effectsApply.clearFilter();
     document.removeEventListener('keydown', onOverlayEscPress);
   };
 
-  overlayCloseBtn.addEventListener('click', function () {
+  overlayCloseButton.addEventListener('click', function () {
     overlayClose();
   });
 

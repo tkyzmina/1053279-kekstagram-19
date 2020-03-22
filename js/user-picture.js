@@ -22,10 +22,13 @@
       reader.addEventListener('load', function () {
         preview.src = reader.result;
 
-        for (var i = 0; i < effectsPreview.length; i++) {
-          effectsPreview[i].style.backgroundImage = 'url(' + reader.result + ')';
-        }
+        // for (var i = 0; i < effectsPreview.length; i++) {
+        //   effectsPreview[i].style.backgroundImage = 'url(' + reader.result + ')';
+        // }
 
+        effectsPreview.forEach(function (item) {
+          item.style.backgroundImage = 'url(' + reader.result + ')';
+        });
       });
 
       reader.readAsDataURL(file);

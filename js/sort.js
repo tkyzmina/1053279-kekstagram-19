@@ -14,11 +14,11 @@
   };
 
 
-  var onSortbuttonClick = window.debounce(function (evt) {
+  var onSortButtonClick = window.debounce(function (evt) {
     window.pictures.clearPictures();
     buttonStyleApply(evt.target);
-    var choosenFilter = evt.target;
-    switch (choosenFilter) {
+    var chosenFilter = evt.target;
+    switch (chosenFilter) {
       case defaultFilter:
         defaultPictures();
         break;
@@ -31,7 +31,7 @@
     }
   });
 
-  imgFilters.addEventListener('click', onSortbuttonClick);
+  imgFilters.addEventListener('click', onSortButtonClick);
 
   var defaultPictures = function () {
     window.pictures.insertPhoto(window.pictures.getArray());

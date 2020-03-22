@@ -18,11 +18,16 @@
 
   var picturesArr = [];
 
-  var insertPhoto = function (picts) {
+  var insertPhoto = function (pictures) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < picts.length; i++) {
-      fragment.appendChild(getPicture(picts[i]));
-    }
+    // for (var i = 0; i < picts.length; i++) {
+    //   fragment.appendChild(getPicture(picts[i]));
+    // }
+    pictures.forEach(function (item) {
+      fragment.appendChild(getPicture(item));
+    });
+
+
     picturesElement.appendChild(fragment);
     imgFilters.classList.remove('img-filters--inactive');
 

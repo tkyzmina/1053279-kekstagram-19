@@ -12,7 +12,7 @@
     var inputContent = inputHashtags.value.replace(/\s+/g, ' ').trim().toLowerCase();
     tagsList = inputContent ? inputContent.split(' ') : [];
     var validationMessage;
-    var notAceptableSymbols = /^#[A-Za-z0-9А-Яа-я]*$/;
+    var notAcceptableSymbols = /^#[A-Za-z0-9А-Яа-я]*$/;
 
     if (tagsList.length > MAX_TAG_QUANTITY) {
       validationMessage = 'Нельзя указать больше пяти хэш-тегов';
@@ -32,7 +32,7 @@
         validationMessage = 'слишком короткий хештег';
       } else if (tags.length > MAX_TAG_LENGTH) {
         validationMessage = 'длина хештега не более 20 символов';
-      } else if (!notAceptableSymbols.test(tags)) {
+      } else if (!notAcceptableSymbols.test(tags)) {
         validationMessage = 'недопустимые символы! допустимы только буквы и цыфры';
       } else if (hasDuplicates(tagsList)) {
         validationMessage = 'хештеги не должны повторяться';

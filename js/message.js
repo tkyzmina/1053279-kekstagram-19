@@ -6,7 +6,7 @@
 
   var showSuccess = function () {
     var element = templateSuccess.cloneNode(true);
-    var successBtn = element.querySelector('.success__button');
+    var successButton = element.querySelector('.success__button');
 
     element.addEventListener('click', function (evt) {
       if (evt.target.classList.contains('success')) {
@@ -14,7 +14,7 @@
       }
     });
 
-    successBtn.addEventListener('click', function () {
+    successButton.addEventListener('click', function () {
       close();
     });
 
@@ -24,7 +24,7 @@
 
   var showError = function () {
     var element = templateError.cloneNode(true);
-    var errorBtn = element.querySelector('.error__button');
+    var errorButton = element.querySelector('.error__button');
 
     element.addEventListener('click', function (evt) {
       if (evt.target.classList.contains('error')) {
@@ -32,7 +32,7 @@
       }
     });
 
-    errorBtn.addEventListener('click', function () {
+    errorButton.addEventListener('click', function () {
       close();
     });
 
